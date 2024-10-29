@@ -14,12 +14,13 @@ import com.Lalitdk.project.uber.uberApp.services.DriverService;
 import com.Lalitdk.project.uber.uberApp.services.RideRequestService;
 import com.Lalitdk.project.uber.uberApp.services.RideService;
 import lombok.RequiredArgsConstructor;
+
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,11 +33,12 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional
+
     public RideDto acceptRide(Long rideRequestId) {
         RideRequest rideRequest = rideRequestService.findRideRequestById(rideRequestId);
 
         if(!rideRequest.getRideRequestStatus().equals(RideRequestStatus.PENDING)) {
-            throw new RuntimeException("RideRequest cannot be accepted, status is "+ rideRequest.getRideRequestStatus());
+            throw new RuntimeException("RideRequest cannot be accepted, status is " + rideRequest.getRideRequestStatus());
         }
 
         Driver currentDriver = getCurrentDriver();
@@ -47,14 +49,44 @@ public class DriverServiceImpl implements DriverService {
         currentDriver.setAvailable(false);
         Driver savedDriver = driverRepository.save(currentDriver);
 
+        Driver saveDriver = updateDriverAvailability(currentDriver, false );
+
+
         Ride ride = rideService.createNewRide(rideRequest, savedDriver);
         return modelMapper.map(ride, RideDto.class);
     }
 
+
+
+    // for cancellation the ride only driver can cancel the ride
+    // including various logic ie can cancel only when the ride has not been started
+    // if ride get started then we cant cancel it we can just end it 
+
+
     @Override
     public RideDto cancelRide(Long rideId) {
-        return null;
+
+        // all we need is to get the ride first, check whether this
+        // driver hold this ride
+
+        Ride ride = rideService.getRideById(rideId);
+        Driver driver = getCurrentDriver();
+        
+        if(!driver.equals(ride.getDriver())) {
+            throw new RuntimeException("Driver cannot start a ride as he has not accepted it earlier");
+        }
+
+        // we can only cancel the ride if it is confirm
+        if(!ride.getRideStatus().equals(RideStatus.CONFIRMED)){
+            throw new  RuntimeException("Ride cannot be cancelled, invalid status: " + ride.getRideStatus());
+        }
+
+        rideService.updateRideStatus(ride, RideStatus.CANCELLED);
+        updateDriverAvailability(driver, true);
+
+        return modelMapper.map(ride,RideDto.class);
     }
+
 
     @Override
     public RideDto startRide(Long rideId, String otp) {
@@ -75,6 +107,7 @@ public class DriverServiceImpl implements DriverService {
 
         ride.setStartedAt(LocalDateTime.now());
         Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ONGOING);
+
         return modelMapper.map(savedRide, RideDto.class);
     }
 
@@ -90,12 +123,17 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public DriverDto getMyProfile() {
-        return null;
+        Driver currentDriver = getCurrentDriver();
+        return modelMapper.map(currentDriver, DriverDto.class);
     }
 
     @Override
-    public List<RideDto> getAllMyRides() {
-        return List.of();
+    public org.springframework.data.domain.Page<RideDto> getAllMyRides(PageRequest pageRequest) {
+        Driver driver = getCurrentDriver();
+        return rideService.getAllRidesOfDriver(driver.getId(), pageRequest).map(
+            ride -> modelMapper.map(ride, RideDto.class)
+        );
+
     }
 
     @Override
@@ -105,4 +143,12 @@ public class DriverServiceImpl implements DriverService {
     }
 
 
+
+    @Override
+    public Driver updateDriverAvailability(Driver driver, boolean available) {
+       driver.setAvailable(null);
+       return driverRepository.save(driver);
+
 }
+}
+
