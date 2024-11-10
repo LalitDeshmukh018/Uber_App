@@ -2,7 +2,6 @@ package com.Lalitdk.project.uber.uberApp.services.impl;
 
 import com.Lalitdk.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.Lalitdk.project.uber.uberApp.repositories.RideRepository;
-import com.Lalitdk.project.uber.uberApp.dto.RideRequestDto;
 import com.Lalitdk.project.uber.uberApp.entities.Driver;
 import com.Lalitdk.project.uber.uberApp.entities.Ride;
 import com.Lalitdk.project.uber.uberApp.entities.RideRequest;
@@ -15,8 +14,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import com.Lalitdk.project.uber.uberApp.entities.Rider;
+
+
+
 
 import java.util.Random;
+
 
 @Service
 @RequiredArgsConstructor
@@ -55,13 +59,13 @@ public class RideServiceImpl implements RideService {
     }
 
     @Override
-    public Page<Ride> getAllRidesOfRider(Long riderId, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfRider(Rider rider, PageRequest pageRequest) {
+        return rideRepository.findByRider(rider, pageRequest);
     }
 
     @Override
-    public Page<Ride> getAllRidesOfDriver(Long driverId, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfDriver(Driver driver,  PageRequest pageRequest) {
+        return rideRepository.findByDriver (driver , pageRequest);
     }
 
     private String generateRandomOTP() {

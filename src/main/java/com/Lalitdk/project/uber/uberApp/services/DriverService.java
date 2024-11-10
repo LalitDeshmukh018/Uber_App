@@ -5,9 +5,7 @@ import com.Lalitdk.project.uber.uberApp.dto.RideDto;
 import com.Lalitdk.project.uber.uberApp.dto.RiderDto;
 import com.Lalitdk.project.uber.uberApp.entities.Driver;
 
-import java.util.List;
 
-import org.hibernate.query.Page;
 import org.springframework.data.domain.PageRequest;
 
 public interface DriverService {

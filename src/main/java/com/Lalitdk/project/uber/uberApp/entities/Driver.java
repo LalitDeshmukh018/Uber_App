@@ -1,12 +1,15 @@
 package com.Lalitdk.project.uber.uberApp.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.locationtech.jts.geom.Point;
 
 @Entity
 @Getter
+@Data
+
 @Setter
 public class Driver {
 

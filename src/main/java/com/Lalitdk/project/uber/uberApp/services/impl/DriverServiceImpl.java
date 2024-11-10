@@ -11,10 +11,12 @@ import com.Lalitdk.project.uber.uberApp.entities.enums.RideRequestStatus;
 import com.Lalitdk.project.uber.uberApp.entities.enums.RideStatus;
 import com.Lalitdk.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.Lalitdk.project.uber.uberApp.services.DriverService;
+import com.Lalitdk.project.uber.uberApp.services.PaymentService;
 import com.Lalitdk.project.uber.uberApp.services.RideRequestService;
 import com.Lalitdk.project.uber.uberApp.services.RideService;
 import lombok.RequiredArgsConstructor;
 
+import org.antlr.v4.runtime.atn.LL1Analyzer;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ public class DriverServiceImpl implements DriverService {
     private final DriverRepository driverRepository;
     private final RideService rideService;
     private final ModelMapper modelMapper;
+    private final PaymentService paymentService;
 
     @Override
     @Transactional
@@ -57,7 +60,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
 
-
+   // for the camcel purpose we aes upose dto do not only that
     // for cancellation the ride only driver can cancel the ride
     // including various logic ie can cancel only when the ride has not been started
     // if ride get started then we cant cancel it we can just end it 
@@ -85,6 +88,7 @@ public class DriverServiceImpl implements DriverService {
         updateDriverAvailability(driver, true);
 
         return modelMapper.map(ride,RideDto.class);
+
     }
 
 
@@ -105,15 +109,38 @@ public class DriverServiceImpl implements DriverService {
             throw new RuntimeException("Otp is not valid, otp: "+otp);
         }
 
+        ride.setEndedAt(LocalDateTime.now());
+
         ride.setStartedAt(LocalDateTime.now());
         Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ONGOING);
 
-        return modelMapper.map(savedRide, RideDto.class);
+        // here after starting the ride i also need to create the payment object 
+        //associated to that ride
+        paymentService.createNewPayment(savedRide)
+;        return modelMapper.map(savedRide, RideDto.class);
     }
 
     @Override
+    @Transactional
     public RideDto endRide(Long rideId) {
-        return null;
+         
+        Ride ride = rideService.getRideById(rideId);
+        Driver driver = getCurrentDriver();
+
+        if(!driver.equals(ride.getDriver())){
+            throw new RuntimeException("Driver cannot start a ride as he not accepted it earlier");
+        }
+
+        if (!ride.getRideStatus().equals(RideStatus.ONGOING)){
+            throw new  RuntimeException("Ride status is not ONGOING hence cannot started status " + ride.getRideStatus());  
+        }
+
+         Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ENDED);
+
+        updateDriverAvailability(driver, true);
+        paymentService.processPayment(ride);
+
+        return modelMapper.map(savedRide , RideDto.class);
     }
 
     @Override
@@ -130,7 +157,7 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public org.springframework.data.domain.Page<RideDto> getAllMyRides(PageRequest pageRequest) {
         Driver driver = getCurrentDriver();
-        return rideService.getAllRidesOfDriver(driver.getId(), pageRequest).map(
+        return rideService.getAllRidesOfDriver(driver, pageRequest).map(
             ride -> modelMapper.map(ride, RideDto.class)
         );
 

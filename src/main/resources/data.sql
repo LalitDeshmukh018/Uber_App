@@ -42,3 +42,7 @@
 
 -- INSERT INTO rider (id, user_id, rating) VALUES
 -- (1, 1, 4.9);
+
+-- INSERT INTO wallet (id , user_id,balance) VALUES
+-- (1,1,100),
+-- (2,2,500);
