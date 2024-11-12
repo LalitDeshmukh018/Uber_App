@@ -16,7 +16,6 @@ import com.Lalitdk.project.uber.uberApp.services.RideRequestService;
 import com.Lalitdk.project.uber.uberApp.services.RideService;
 import lombok.RequiredArgsConstructor;
 
-import org.antlr.v4.runtime.atn.LL1Analyzer;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -52,7 +51,7 @@ public class DriverServiceImpl implements DriverService {
         currentDriver.setAvailable(false);
         Driver savedDriver = driverRepository.save(currentDriver);
 
-        Driver saveDriver = updateDriverAvailability(currentDriver, false );
+          updateDriverAvailability(currentDriver, false );
 
 
         Ride ride = rideService.createNewRide(rideRequest, savedDriver);

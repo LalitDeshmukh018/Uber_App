@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class CashPaymentStrategy implements PaymentStrategy {
 
     private final WalletService walletService;
-    private final PaymentService paymentService;
     private final PaymentRepository paymentRepository;
 
 

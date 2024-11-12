@@ -1,6 +1,5 @@
 package com.Lalitdk.project.uber.uberApp.services.impl;
 
-import com.Lalitdk.project.uber.uberApp.dto.WalletTransactionDto;
 import com.Lalitdk.project.uber.uberApp.entities.Ride;
 import com.Lalitdk.project.uber.uberApp.entities.User;
 import com.Lalitdk.project.uber.uberApp.entities.Wallet;
