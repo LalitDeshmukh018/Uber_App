@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1fc182e1-2097-41b8-8e07-eccaf72dded7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/uberApp/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/advices/GlobalResponseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/advices/GlobalResponseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/controllers/DriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/controllers/DriverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/controllers/RiderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/controllers/RiderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/entities/WalletTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/entities/WalletTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/services/impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/services/impl/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/strategies/impl/CashPaymentStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/java/com/Lalitdk/project/uber/uberApp/strategies/impl/CashPaymentStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uberApp/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/uberApp/src/main/resources/data.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/uberApp" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2mp8Rp8wHyl7TPL2O33P48I6Gfo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lalit/Desktop/Uber&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1fc182e1-2097-41b8-8e07-eccaf72dded7" name="Changes" comment="" />
+      <created>1727762152551</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727762152551</updated>
+    </task>
+    <servers />
+  </component>
+</project>
